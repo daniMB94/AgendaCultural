@@ -13,6 +13,15 @@ return new class extends Migration
     {
         Schema::create('eventos', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre');
+            $table->date('fecha');
+            $table->time('hora');
+            $table->text('descripcion');
+            $table->string('ciudad');
+            $table->string('direccion');
+            $table->enum('estado', ['creado', 'cancelado', 'terminado']);
+            $table->double('aforoMax');
+            $table->enum('tipo', ['online', 'presencia']);
             $table->timestamps();
         });
     }

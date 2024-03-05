@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('inscripcions', function (Blueprint $table) {
             $table->id();
+            $table->double('numEntradas');
+            $table->enum('estado', ['recibida', 'confirmada', 'cancelada']);
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
+            $table->unsignedBigInteger('evento_id')->nullable();
+            $table->foreign('evento_id')->references('id')->on('eventos')->onDelete('set null');
             $table->timestamps();
         });
     }

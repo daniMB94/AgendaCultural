@@ -13,6 +13,15 @@ return new class extends Migration
     {
         Schema::create('experiencias', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre');
+            $table->date('fechaInicio');
+            $table->date('fechaFin');
+            $table->string('descripcionCorta');
+            $table->text('descripcionLarga');
+            $table->double('precio');
+            $table->string('imagen');
+            $table->unsignedBigInteger('empresa_id')->nullable();
+            $table->foreign('empresa_id')->references('id')->on('empresas')->onDelete('set null');
             $table->timestamps();
         });
     }

@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Empresa;
+use App\Models\Evento;
 
 class EventoSeeder extends Seeder
 {
@@ -13,6 +13,6 @@ class EventoSeeder extends Seeder
      */
     public function run(): void
     {
-        Evento::factory()->count(15)->create();
+        Evento::factory()->count(32)->create();
     }
 }

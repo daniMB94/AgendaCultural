@@ -27,6 +27,7 @@ class EventoFactory extends Factory
             'estado' => $this->$faker->randomElement(['creado', 'cancelado', 'terminado']),
             'aforoMax' => $this->faker->numberBetween(50-200),
             'tipo' => $this->faker->randomElement(['online', 'presencial']),
+            'empresa_id' => $this->faker->numberBetween(1,5),
         ];
     }
 }

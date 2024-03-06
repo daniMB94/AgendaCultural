@@ -22,8 +22,12 @@ return new class extends Migration
             $table->enum('estado', ['creado', 'cancelado', 'terminado']);
             $table->double('aforoMax');
             $table->enum('tipo', ['online', 'presencial']);
-            $table->unsignedBigInteger('empresa_id')->nullable();
-            $table->foreign('empresa_id')->references('id')->on('empresas')->onDelete('set null');
+            $table->double('numMaxEntradasPersona');
+            $table->unsignedBigInteger('categoria_id')->nullable();
+            $table->string('imagen');
+            $table->foreign('categoria_id')->references('id')->on('categorias')->onDelete('set null');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
             $table->timestamps();
         });
     }

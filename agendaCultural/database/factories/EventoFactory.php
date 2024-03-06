@@ -16,8 +16,17 @@ class EventoFactory extends Factory
      */
     public function definition(): array
     {
+        
         return [
-            //
+            'nombre' => $this->faker->text($maxNbChars = 20),
+            'fecha' => $this->faker->dateTimeBetween('2024-03-30', '2050-12-31')->format('d/m/Y'),
+            'hora' => $this->faker->time('H:i', '09:00', '00:00'),
+            'descripcion' => $this->faker->text($maxNbChars = 100),
+            'ciudad' => $this->faker->city,
+            'direccion' => $this->faker->streetAddres,
+            'estado' => $this->$faker->randomElement(['creado', 'cancelado', 'terminado']),
+            'aforoMax' => $this->faker->numberBetween(50-200),
+            'tipo' => $this->faker->randomElement(['online', 'presencial']),
         ];
     }
 }

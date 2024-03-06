@@ -15,7 +15,7 @@ class EmpresaSeeder extends Seeder
      */
     public function run(): void
     {
-       // Empresa::factory()->count(5)->create();
+       Empresa::factory()->count(5)->create();
 
         DB::table('empresas')->insert([
             'nombre'=> 'admin',
@@ -24,6 +24,15 @@ class EmpresaSeeder extends Seeder
             'email' => 'admin',
             'web' => 'admin',
             'informacionExtra' => 'admin',
+        ]);
+
+        DB::table('empresas')->insert([
+            'nombre'=> 'asistente',
+            'direccion' => 'asistente',
+            'telefono' => 'asistente',
+            'email' => 'asistente',
+            'web' => 'asistente',
+            'informacionExtra' => 'asistente',
         ]);
     }
 }

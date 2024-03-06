@@ -16,13 +16,13 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        //User::factory()->count(70)->create();
+        User::factory()->count(5)->create();
 
-
+        /*
         DB::table('users')->insert([
             'nombre' => 'Dani',
             'apellidos' => 'Martos',
-            'edad' => 20,
+            'edad' => 30,
             'direccion' => 'C/ Federico García Lorca',
             'ciudad' => 'Vera',
             'telefono' => '666888777',
@@ -32,6 +32,7 @@ class UserSeeder extends Seeder
             'rol' => "admin",
             'empresa_id' => 6,
         ]);
+        */
 
     }
 }

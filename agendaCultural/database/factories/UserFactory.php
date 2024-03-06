@@ -34,6 +34,7 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'rol' => "asistente",
+            //'empresa_id' => 7,
             'empresa_id' => $this->faker->numberBetween(1,5),
             'remember_token' => Str::random(10),
             

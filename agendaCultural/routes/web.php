@@ -16,3 +16,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::get('/dashboard', [EventoController::class, 'index'])->middleware(['auth', 'verified', $rol='asistente'])->name('vistaAsistente');

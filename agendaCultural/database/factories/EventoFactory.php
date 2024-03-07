@@ -19,15 +19,18 @@ class EventoFactory extends Factory
         
         return [
             'nombre' => $this->faker->text($maxNbChars = 20),
-            'fecha' => $this->faker->dateTimeBetween('2024-03-30', '2050-12-31')->format('d/m/Y'),
+            'fecha' => $this->faker->dateTimeBetween('+1 week', '+4 week'),
             'hora' => $this->faker->time('H:i', '09:00', '00:00'),
             'descripcion' => $this->faker->text($maxNbChars = 100),
             'ciudad' => $this->faker->city,
-            'direccion' => $this->faker->streetAddres,
-            'estado' => $this->$faker->randomElement(['creado', 'cancelado', 'terminado']),
-            'aforoMax' => $this->faker->numberBetween(50-200),
+            'direccion' => $this->faker->streetAddress,
+            'estado' => $this->faker->randomElement(['creado', 'cancelado', 'terminado']),
+            'aforoMax' => $this->faker->numberBetween(50, 200),
             'tipo' => $this->faker->randomElement(['online', 'presencial']),
-            'empresa_id' => $this->faker->numberBetween(1,5),
+            'numMaxEntradasPersona' => $this->faker->numberBetween(1, 5),
+            'imagen' => $this->faker->numberBetween(1, 10) . 'jpg',
+            'categoria_id' => $this->faker->numberBetween(1, 8),
+            'user_id' => $this->faker->numberBetween(102, 151),
         ];
     }
 }

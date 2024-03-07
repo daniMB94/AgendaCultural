@@ -23,8 +23,8 @@ return new class extends Migration
             $table->double('aforoMax');
             $table->enum('tipo', ['online', 'presencial']);
             $table->double('numMaxEntradasPersona');
-            $table->unsignedBigInteger('categoria_id')->nullable();
             $table->string('imagen');
+            $table->unsignedBigInteger('categoria_id')->nullable();
             $table->foreign('categoria_id')->references('id')->on('categorias')->onDelete('set null');
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');

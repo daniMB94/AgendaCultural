@@ -17,7 +17,14 @@ class ExperienciaFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'nombre' => $this->faker->text($maxNbChars = 20),
+            'fechaInicio' => $this->faker->dateTimeBetween('+1 week', '+2 week'),
+            'fechaFin' => $this->faker->dateTimeBetween('+3 week', '+4 week'),
+            'descripcionCorta' => $this->faker->text($maxNbChars = 50),
+            'descripcionLarga' => $this->faker->text($maxNbChars = 200),
+            'precio' => $this->faker->numberBetween(5, 35),
+            'imagen' => 'exp' . $this->faker->numberBetween(1, 10) . 'jpg',
+            'empresa_id' => $this->faker->numberBetween(1, 5),
         ];
     }
 }

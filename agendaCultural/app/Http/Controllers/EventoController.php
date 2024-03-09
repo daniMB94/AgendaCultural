@@ -14,7 +14,7 @@ class EventoController extends Controller
     {
         $eventos = Evento::with(['user', 'categoria'])->paginate(8);
 
-        return view('dashboard', compact('eventos'));
+        return view('asistente.dashboard', compact('eventos'));
     }
 
     /**

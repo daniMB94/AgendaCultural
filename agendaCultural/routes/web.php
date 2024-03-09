@@ -19,9 +19,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//Route::prefix('asistente')->group(function () {
-Route::get('/dashboard', [EventoController::class, 'index'])->middleware(['auth', 'verified', 'mdrol:asistente'])->name('dashboard');
-//});
+Route::prefix('asistente')->middleware(['auth', 'verified', 'mdrol:asistente'])->group(function () {
+    Route::get('/dashboard', [EventoController::class, 'index'])->name('dashboard');
+});
+
 
 
 Route::middleware('auth')->group(function () {

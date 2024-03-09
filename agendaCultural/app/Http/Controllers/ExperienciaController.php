@@ -12,7 +12,9 @@ class ExperienciaController extends Controller
      */
     public function index()
     {
-        //
+        $experiencias = Experiencia::with(['empresa'])->paginate(8);
+
+        return view('asistente.experiencias', compact('experiencias'));
     }
 
     /**

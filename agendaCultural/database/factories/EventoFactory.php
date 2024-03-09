@@ -16,7 +16,9 @@ class EventoFactory extends Factory
      */
     public function definition(): array
     {
-        
+        //Uso la misma variable para establecer la categoria y la imagen. Así la imamgen tendra coherencia con la categoria
+        $categoriaImagen = $this->faker->numberBetween(1, 8);
+
         return [
             'nombre' => $this->faker->text($maxNbChars = 20),
             'fecha' => $this->faker->dateTimeBetween('+1 week', '+4 week'),
@@ -28,8 +30,8 @@ class EventoFactory extends Factory
             'aforoMax' => $this->faker->numberBetween(50, 200),
             'tipo' => $this->faker->randomElement(['online', 'presencial']),
             'numMaxEntradasPersona' => $this->faker->numberBetween(1, 5),
-            'imagen' => $this->faker->numberBetween(1, 10) . 'jpg',
-            'categoria_id' => $this->faker->numberBetween(1, 8),
+            'imagen' => $categoriaImagen . '.jpg',
+            'categoria_id' => $categoriaImagen,
             'user_id' => $this->faker->numberBetween(102, 151),
         ];
     }

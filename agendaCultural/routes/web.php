@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventoController;
+use App\Http\Controllers\ExperienciaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +21,11 @@ Route::get('/', function () {
 });
 
 Route::prefix('asistente')->middleware(['auth', 'verified', 'mdrol:asistente'])->group(function () {
-    Route::get('/dashboard', [EventoController::class, 'index'])->name('dashboard');
+    Route::get('/eventos', [EventoController::class, 'index'])->name('eventos');
+    Route::get('/explora', function () {
+        return view('asistente.explora');
+    })->name('explora');
+    Route::get('/experiencias', [ExperienciaController::class, 'index'])->name('experiencias');
 });
 
 

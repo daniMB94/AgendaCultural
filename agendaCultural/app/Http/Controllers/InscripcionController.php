@@ -28,7 +28,15 @@ class InscripcionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $inscripcion = new Inscripcion();
+        $inscripcion->numEntradas = $request->numEntradas;
+        $inscripcion->estado = "recibida";
+        $inscripcion->user_id = $request->user_id;
+        $inscripcion->evento_id = $request->evento_id;
+
+        $inscripcion->save();
+
+        return redirect()->route('misEntradas');
     }
 
     /**

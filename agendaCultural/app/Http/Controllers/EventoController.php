@@ -30,7 +30,6 @@ class EventoController extends Controller
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**

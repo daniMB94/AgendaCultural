@@ -20,10 +20,10 @@ class EventoFactory extends Factory
         $categoriaImagen = $this->faker->numberBetween(1, 8);
 
         return [
-            'nombre' => $this->faker->text($maxNbChars = 20),
+            'nombre' => $this->faker->unique()->text($maxNbChars = 20),
             'fecha' => $this->faker->dateTimeBetween('+1 week', '+4 week'),
             'hora' => $this->faker->time('H:i', '09:00', '00:00'),
-            'descripcion' => $this->faker->text($maxNbChars = 100),
+            'descripcion' => $this->faker->unique()->text($maxNbChars = 100),
             'ciudad' => $this->faker->city,
             'direccion' => $this->faker->streetAddress,
             'estado' => $this->faker->randomElement(['creado', 'cancelado', 'terminado']),

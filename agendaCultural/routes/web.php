@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventoController;
 use App\Http\Controllers\ExperienciaController;
+use App\Http\Controllers\InscripcionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,10 @@ Route::get('/', function () {
 
 Route::prefix('asistente')->middleware(['auth', 'verified', 'mdrol:asistente'])->group(function () {
     Route::get('/eventos', [EventoController::class, 'index'])->name('eventos');
+    Route::post('/inscripcion', [InscripcionController::class, 'store'])->name('inscripcion.store');
+    Route::get('/areaPersonal', function () {
+        return view('asistente.misEntradas');
+    })->name('misEntradas');
     Route::get('/explora', function () {
         return view('asistente.explora');
     })->name('explora');

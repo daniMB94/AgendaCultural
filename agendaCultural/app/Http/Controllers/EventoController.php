@@ -12,7 +12,9 @@ class EventoController extends Controller
      */
     public function index()
     {
-        //
+        $eventos = Evento::with(['user', 'categoria'])->paginate(8);
+
+        return view('dashboard', compact('eventos'));
     }
 
     /**

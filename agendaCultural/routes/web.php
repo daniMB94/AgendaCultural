@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\EventoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,11 +19,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::prefix('asistente')->middleware(['auth', 'verified', 'mdrol:asistente'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});
+//Route::prefix('asistente')->group(function () {
+Route::get('/dashboard', [EventoController::class, 'index'])->middleware(['auth', 'verified', 'mdrol:asistente'])->name('dashboard');
+//});
 
 
 Route::middleware('auth')->group(function () {

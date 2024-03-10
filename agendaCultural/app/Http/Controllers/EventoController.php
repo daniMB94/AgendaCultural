@@ -38,9 +38,28 @@ class EventoController extends Controller
      */
     public function show($filtro)
     {
+        switch ($filtro) {
+            case 'mes':
+                $eventos = Evento::with(['user', 'categoria'])
+                    ->whereYear('fecha', now()->year)
+                    ->whereMonth('fecha', now()->month)
+                    ->paginate(8);
+                var_dump($eventos);
+                break;
+            case 'semana':
+                $eventos = Evento::with(['user', 'categoria'])
+                    ->where('fecha', '>=', now()->startOfWeek())
+                    ->where('fecha', '<=', now()->endOfWeek())
+                    ->paginate(8);
+                var_dump($eventos);
+                break;
+            default:
 
-        var_dump($filtro);
+                break;
+        }
     }
+
+
 
 
     /**

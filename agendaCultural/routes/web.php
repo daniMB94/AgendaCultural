@@ -23,8 +23,8 @@ Route::get('/', function () {
 
 Route::prefix('asistente')->middleware(['auth', 'verified', 'mdrol:asistente'])->group(function () {
     Route::get('/eventos', [EventoController::class, 'index'])->name('asistente.eventos');
-    Route::get('/eventos/semana/{semana}', [EventoController::class, 'show'])->name('eventos.semana');
-    Route::get('/eventos/semana/{mes}', [EventoController::class, 'show'])->name('eventos.mes');
+    Route::get('/eventos/semana/{filtro}', [EventoController::class, 'show'])->name('asistente.eventos.semana');
+    Route::get('/eventos/mes/{filtro}', [EventoController::class, 'show'])->name('asistente.eventos.mes');
     Route::post('/inscripcion', [InscripcionController::class, 'store'])->name('inscripcion.store');
     Route::get('inscripciones/show', [InscripcionController::class, 'index'])->name('inscripciones.show');
     Route::get('/explora', function () {

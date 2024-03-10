@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Evento;
 use Illuminate\Http\Request;
 
+
 class EventoController extends Controller
 {
     /**
@@ -35,10 +36,12 @@ class EventoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Evento $evento)
+    public function show($filtro)
     {
-        //
+
+        var_dump($filtro);
     }
+
 
     /**
      * Show the form for editing the specified resource.

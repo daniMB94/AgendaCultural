@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Empresa extends Model
@@ -16,13 +15,8 @@ class Empresa extends Model
         return $this->hasMany(User::class);
     }
 
-    public function inscripcions(): HasMany
+    public function experiencias(): HasMany
     {
-        return $this->hasMany(Inscripcion::class);
-    }
-
-    public function experiencia(): BelongsTo
-    {
-        return $this->belongsTo(Experiencia::class);
+        return $this->hasMany(Experiencia::class);
     }
 }

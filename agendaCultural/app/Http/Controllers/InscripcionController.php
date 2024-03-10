@@ -12,7 +12,8 @@ class InscripcionController extends Controller
      */
     public function index()
     {
-        //
+        $inscripciones = Inscripcion::with(['evento'])->paginate(8);
+        return view('asistente.inscripciones', compact('inscripciones'));
     }
 
     /**
@@ -36,7 +37,7 @@ class InscripcionController extends Controller
 
         $inscripcion->save();
 
-        return redirect()->route('misEntradas');
+        return redirect()->route('inscripciones.show');
     }
 
     /**
@@ -44,7 +45,6 @@ class InscripcionController extends Controller
      */
     public function show(Inscripcion $inscripcion)
     {
-        //
     }
 
     /**

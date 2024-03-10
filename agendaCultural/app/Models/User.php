@@ -50,8 +50,13 @@ class User extends Authenticatable
         return $this->belongsTo(Empresa::class);
     }
 
-    public function inscripcion(): HasMany
+    public function inscripcions(): HasMany
     {
         return $this->hasMany(Inscripcion::class);
+    }
+
+    public function eventos(): HasMany
+    {
+        return $this->hasMany(Evento::class);
     }
 }

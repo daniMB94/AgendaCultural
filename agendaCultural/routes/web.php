@@ -22,15 +22,15 @@ Route::get('/', function () {
 });
 
 Route::prefix('asistente')->middleware(['auth', 'verified', 'mdrol:asistente'])->group(function () {
-    Route::get('/eventos', [EventoController::class, 'index'])->name('eventos');
+    Route::get('/eventos', [EventoController::class, 'index'])->name('asistente.eventos');
+    Route::get('/eventos/semana/{semana}', [EventoController::class, 'show'])->name('eventos.semana');
+    Route::get('/eventos/semana/{mes}', [EventoController::class, 'show'])->name('eventos.mes');
     Route::post('/inscripcion', [InscripcionController::class, 'store'])->name('inscripcion.store');
-    Route::get('/areaPersonal', function () {
-        return view('asistente.misEntradas');
-    })->name('misEntradas');
+    Route::get('inscripciones/show', [InscripcionController::class, 'index'])->name('inscripciones.show');
     Route::get('/explora', function () {
         return view('asistente.explora');
-    })->name('explora');
-    Route::get('/experiencias', [ExperienciaController::class, 'index'])->name('experiencias');
+    })->name('asistente.explora');
+    Route::get('/experiencias', [ExperienciaController::class, 'index'])->name('asistente.experiencias');
 });
 
 

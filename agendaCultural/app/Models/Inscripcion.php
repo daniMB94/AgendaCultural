@@ -15,8 +15,8 @@ class Inscripcion extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function empresa(): BelongsTo
+    public function evento(): BelongsTo
     {
-        return $this->belongsTo(Empresa::class);
+        return $this->belongsTo(Evento::class);
     }
 }

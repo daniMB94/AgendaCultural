@@ -836,8 +836,25 @@
         @if (Route::has('login'))
         <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
             @auth
-            <a href="{{ route('eventos') }}"
-                class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Eventos</a>
+            @switch(auth()->user()->rol)
+            @case('asistente')
+            <a href="{{ route('asistente.eventos') }}"
+                class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Agenda
+                de eventos</a>
+            @break
+            @case('admin')
+            <a href="{{ route('admin.dashboard') }}"
+                class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Admin
+                Dashboard</a>
+            @break
+            @case('empresa')
+            <a href="{{ route('empresa.dashboard') }}"
+                class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Empresa
+                Dashboard</a>
+            @break
+            @default
+            <!-- Manejar otros roles si es necesario -->
+            @endswitch
             @else
             <a href="{{ route('login') }}"
                 class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log
@@ -850,6 +867,7 @@
             @endauth
         </div>
         @endif
+
 
         <div class="max-w-7xl mx-auto p-6 lg:p-8">
             <div class="flex justify-center">

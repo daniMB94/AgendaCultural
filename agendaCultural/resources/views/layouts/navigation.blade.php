@@ -12,7 +12,8 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('asistente.eventos')" :active="request()->routeIs('asistente.eventos')">
+                    <x-nav-link :href="route('asistente.eventos')"
+                        :active="Str::of(request()->route()->getName())->is(['asistente.eventos', 'asistente.eventos.semana', 'asistente.eventos.mes'])">
                         {{ __('Agenda de eventos') }}
                     </x-nav-link>
                 </div>

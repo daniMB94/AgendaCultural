@@ -13,7 +13,19 @@ class EventoController extends Controller
      */
     public function index()
     {
-        $eventos = Evento::with(['user', 'categoria'])->paginate(8);
+        $eventos = Evento::all();
+
+        //En primer lugar recorremos los eventos para establecer como terminados los que tiene una fecha posterior a hoy
+        foreach ($eventos as $evento) {
+            if ($evento->fecha < now()) {
+                $evento->estado = 'terminado';
+            }
+            $evento->save();
+        }
+        //Posteriormente recuperamos todos los eventos con su relacion user y categoria para pintarlos
+        $eventos = Evento::with(['user', 'categoria'])
+            ->orderBy('fecha', 'asc')
+            ->paginate(8);
 
         return view('asistente.eventos', compact('eventos'));
     }
@@ -36,27 +48,24 @@ class EventoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($filtro)
+    public function showMes()
     {
-        switch ($filtro) {
-            case 'mes':
-                $eventos = Evento::with(['user', 'categoria'])
-                    ->whereYear('fecha', now()->year)
-                    ->whereMonth('fecha', now()->month)
-                    ->paginate(8);
-                var_dump($eventos);
-                break;
-            case 'semana':
-                $eventos = Evento::with(['user', 'categoria'])
-                    ->where('fecha', '>=', now()->startOfWeek())
-                    ->where('fecha', '<=', now()->endOfWeek())
-                    ->paginate(8);
-                var_dump($eventos);
-                break;
-            default:
+        $eventos = Evento::with(['user', 'categoria'])
+            ->whereYear('fecha', now()->year)
+            ->whereMonth('fecha', now()->month)
+            ->orderBy('fecha', 'asc')
+            ->paginate(8);
+        return view('asistente.eventos', compact('eventos'));
+    }
 
-                break;
-        }
+    public function showSemana()
+    {
+        $eventos = Evento::with(['user', 'categoria'])
+            ->where('fecha', '>=', now()->startOfWeek())
+            ->where('fecha', '<=', now()->endOfWeek())
+            ->orderBy('fecha', 'asc')
+            ->paginate(8);
+        return view('asistente.eventos', compact('eventos'));
     }
 
 

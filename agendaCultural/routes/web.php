@@ -25,6 +25,7 @@ Route::prefix('asistente')->middleware(['auth', 'verified', 'mdrol:asistente'])-
     Route::get('/eventos', [EventoController::class, 'index'])->name('asistente.eventos');
     Route::get('/eventos/semana', [EventoController::class, 'showSemana'])->name('asistente.eventos.semana');
     Route::get('/eventos/mes', [EventoController::class, 'showMes'])->name('asistente.eventos.mes');
+    Route::get('/eventos/filtrar', [EventoController::class, 'filtrarCategoria'])->name('asistente.eventos.filtrar');
     Route::post('/inscripcion', [InscripcionController::class, 'store'])->name('inscripcion.store');
     Route::get('inscripciones/show', [InscripcionController::class, 'index'])->name('inscripciones.show');
     Route::get('/explora', function () {

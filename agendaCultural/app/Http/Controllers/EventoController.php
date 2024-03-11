@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Evento;
 use Illuminate\Http\Request;
+use App\Models\Categoria;
 
 
 class EventoController extends Controller
@@ -11,11 +12,19 @@ class EventoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $eventos = Evento::all();
+        //obtenemos las categorias para usarlas en la creacion del filtro de la vista
+        $categorias = Categoria::all();
+        //Comprobmaos si la request lleva categoria par filtrar los eventos que se pintarán
+        if (isset($request['categoria']) && is_numeric($request->categoria)) {
+            $categoriaFiltro = $request->categoria;
+        } else {
+            $categoriaFiltro = false;
+        }
 
-        //En primer lugar recorremos los eventos para establecer como terminados los que tiene una fecha posterior a hoy
+        //Recorremos los eventos para establecer como terminados los que tiene una fecha posterior a hoy
         foreach ($eventos as $evento) {
             if ($evento->fecha < now()) {
                 $evento->estado = 'terminado';
@@ -23,11 +32,15 @@ class EventoController extends Controller
             $evento->save();
         }
         //Posteriormente recuperamos todos los eventos con su relacion user y categoria para pintarlos
-        $eventos = Evento::with(['user', 'categoria'])
-            ->orderBy('fecha', 'asc')
-            ->paginate(8);
+        $eventosFiltrados = Evento::with(['user', 'categoria'])
+            ->orderBy('fecha', 'asc');
+        //Si categoría filtro tiene valor se añade a la consulta para filtrar por categoria
+        if ($categoriaFiltro) {
+            $eventosFiltrados->where('categoria_id', $categoriaFiltro);
+        }
+        $eventos = $eventosFiltrados->paginate(8);
 
-        return view('asistente.eventos', compact('eventos'));
+        return view('asistente.eventos', compact('eventos', 'categorias'));
     }
 
     /**
@@ -48,24 +61,44 @@ class EventoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function showMes()
+    public function showMes(Request $request)
     {
-        $eventos = Evento::with(['user', 'categoria'])
-            ->whereYear('fecha', now()->year)
-            ->whereMonth('fecha', now()->month)
-            ->orderBy('fecha', 'asc')
-            ->paginate(8);
-        return view('asistente.eventos', compact('eventos'));
+        //obtenemos las categorias para usarlas en la creacion del filtro de la vista
+        $categorias = Categoria::all();
+        //Comprobmaos si la request lleva categoria par filtrar los eventos que se pintarán
+        if (isset($request['categoria']) && is_numeric($request->categoria)) {
+            $categoriaFiltro = $request->categoria;
+        } else {
+            $categoriaFiltro = false;
+        }
+        $eventosFiltrados = Evento::with(['user', 'categoria'])
+            ->whereYear('fecha', '>=', now()->year)
+            ->whereMonth('fecha', '<=', now()->month);
+        if ($categoriaFiltro) {
+            $eventosFiltrados->where('categoria_id', $categoriaFiltro)->orderBy('fecha', 'asc');
+        }
+        $eventos = $eventosFiltrados->paginate(8);
+        return view('asistente.eventos', compact('eventos', 'categorias'));
     }
 
-    public function showSemana()
+    public function showSemana(Request $request)
     {
-        $eventos = Evento::with(['user', 'categoria'])
+        //obtenemos las categorias para usarlas en la creacion del filtro de la vista
+        $categorias = Categoria::all();
+        //Comprobmaos si la request lleva categoria par filtrar los eventos que se pintarán
+        if (isset($request['categoria']) && is_numeric($request->categoria)) {
+            $categoriaFiltro = $request->categoria;
+        } else {
+            $categoriaFiltro = false;
+        }
+        $eventosFiltrados = Evento::with(['user', 'categoria'])
             ->where('fecha', '>=', now()->startOfWeek())
-            ->where('fecha', '<=', now()->endOfWeek())
-            ->orderBy('fecha', 'asc')
-            ->paginate(8);
-        return view('asistente.eventos', compact('eventos'));
+            ->where('fecha', '<=', now()->endOfWeek());
+        if ($categoriaFiltro) {
+            $eventosFiltrados->where('categoria_id', $categoriaFiltro)->orderBy('fecha', 'asc');
+        }
+        $eventos = $eventosFiltrados->paginate(8);
+        return view('asistente.eventos', compact('eventos', 'categorias'));
     }
 
 
@@ -93,5 +126,9 @@ class EventoController extends Controller
     public function destroy(Evento $evento)
     {
         //
+    }
+
+    public function filtrarCategoria(Request $request)
+    {
     }
 }

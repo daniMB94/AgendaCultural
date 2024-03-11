@@ -22,6 +22,24 @@
                 </x-subnav-link>
             </div>
         </div>
+        <div class="flex justify-center">
+            <form action="{{route(Route::currentRouteName())}}" method="get" class="mt-4">
+                @csrf
+                <!-- Token de seguridad para formularios en Laravel -->
+
+                <label for="fruta">Categorias:</label>
+                <select name="categoria" class="w-64 rounded">
+                    <option selected value="todas">Todas las categorias </option>
+                    @foreach($categorias as $categoria)
+                    <option value="{{$categoria->id}}">{{$categoria->nombre}}</option>
+                    @endforeach
+                </select>
+                <input type="hidden" name="ruta" value="{{request()->path()}}">
+                <button
+                    class="inline-block bg-green-200 rounded border-2 border-green-700 px-1 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+                    type="submit">Filtrar</button>
+            </form>
+        </div>
     </x-slot>
 
     <div class="py-12">

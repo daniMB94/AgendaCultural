@@ -75,9 +75,9 @@ class EventoController extends Controller
             ->whereYear('fecha', '>=', now()->year)
             ->whereMonth('fecha', '<=', now()->month);
         if ($categoriaFiltro) {
-            $eventosFiltrados->where('categoria_id', $categoriaFiltro)->orderBy('fecha', 'asc');
+            $eventosFiltrados->where('categoria_id', $categoriaFiltro);
         }
-        $eventos = $eventosFiltrados->paginate(8);
+        $eventos = $eventosFiltrados->orderBy('fecha', 'asc')->paginate(8);
         return view('asistente.eventos', compact('eventos', 'categorias'));
     }
 
@@ -95,9 +95,9 @@ class EventoController extends Controller
             ->where('fecha', '>=', now()->startOfWeek())
             ->where('fecha', '<=', now()->endOfWeek());
         if ($categoriaFiltro) {
-            $eventosFiltrados->where('categoria_id', $categoriaFiltro)->orderBy('fecha', 'asc');
+            $eventosFiltrados->where('categoria_id', $categoriaFiltro);
         }
-        $eventos = $eventosFiltrados->paginate(8);
+        $eventos = $eventosFiltrados->orderBy('fecha', 'asc')->paginate(8);
         return view('asistente.eventos', compact('eventos', 'categorias'));
     }
 

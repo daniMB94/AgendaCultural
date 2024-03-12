@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Experiencia;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class ExperienciaController extends Controller
 {
@@ -11,11 +12,18 @@ class ExperienciaController extends Controller
      * Display a listing of the resource.
      */
     public function index()
+
     {
-        $experiencias = Experiencia::with(['empresa'])->paginate(8);
+
+        $experiencias = Experiencia::with(['empresa'])->get();
+        foreach ($experiencias as $experiencia) {
+            $experiencia->fechaInicio =  Carbon::parse($experiencia->fechaInicio)->locale('es')->format('Y/m/d');
+        }
+
 
         return view('asistente.experiencias', compact('experiencias'));
     }
+
 
     /**
      * Show the form for creating a new resource.

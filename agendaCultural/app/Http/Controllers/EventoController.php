@@ -43,6 +43,11 @@ class EventoController extends Controller
         return view('asistente.eventos', compact('eventos', 'categorias'));
     }
 
+    public function indexAdmin(Request $request)
+    {
+        return view('admin.dashboard');
+    }
+
     /**
      * Show the form for creating a new resource.
      */

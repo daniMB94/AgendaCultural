@@ -34,6 +34,9 @@ Route::prefix('asistente')->middleware(['auth', 'verified', 'mdrol:asistente'])-
     Route::get('/experiencias', [ExperienciaController::class, 'index'])->name('asistente.experiencias');
 });
 
+Route::prefix('admin')->middleware(['auth', 'verified', 'mdrol:admin'])->group(function () {
+    Route::get('/dashboard', [EventoController::class, 'indexAdmin'])->name('admin.dashboard');
+});
 
 
 Route::middleware('auth')->group(function () {

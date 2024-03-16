@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Evento;
+use App\Models\User;
+use App\Models\Experiencia;
+use App\Models\Empresa;
+use App\Models\Inscripcion;
 use Illuminate\Http\Request;
 use App\Models\Categoria;
 
@@ -45,7 +49,18 @@ class EventoController extends Controller
 
     public function indexAdmin(Request $request)
     {
-        return view('admin.dashboard');
+        $nEventos = Evento::all()->count();
+        $nUsuarios = User::all()->count();
+        $nExperiencias = Experiencia::all()->count();
+        $nEmpresas = Empresa::all()->count() - 2;
+        $nInscripciones = Inscripcion::all()->count();
+        //Esta variable almacena el número de inscripciones vinculadas a un evento que sigue en vigor, es decir, que tiene una fechaFin mayor a la fecha de hoy
+        $inscripcionesActivas = Inscripcion::addSelect(['fechaFin' => Evento::select('nombre')
+            ->whereColumn('evento_id', 'eventos.id')
+            ->where('fechaFin', '>=', now())
+            ->limit(1)])->count();
+
+        return view('admin.dashboard', compact('nEventos', 'nUsuarios', 'nExperiencias', 'nEmpresas', 'nInscripciones', 'inscripcionesActivas'));
     }
 
     /**

@@ -54,13 +54,28 @@ class EventoController extends Controller
         $nExperiencias = Experiencia::all()->count();
         $nEmpresas = Empresa::all()->count() - 2;
         $nInscripciones = Inscripcion::all()->count();
-        //Esta variable almacena el número de inscripciones vinculadas a un evento que sigue en vigor, es decir, que tiene una fechaFin mayor a la fecha de hoy
-        $inscripcionesActivas = Inscripcion::addSelect(['fechaFin' => Evento::select('nombre')
-            ->whereColumn('evento_id', 'eventos.id')
-            ->where('fechaFin', '>=', now())
-            ->limit(1)])->count();
+        //Esta variable almacena el número de inscripciones vinculadas a un evento que sigue en vigor, es decir, que tiene una fechaFin mayor a la fecha de hoy y esta creado
+        $inscripcionesActivas = Inscripcion::whereHas('evento', function ($query) {
+            $query->where('fecha', '>=', now())
+                ->where('estado', 'creado');
+        })->count();
+        //Esta variable almacena el número de inscripciones vinculadas a un evento que sigue ya no está en vigor, es decir, que tiene una fechaFin menor a la fecha de hoy y esta cancelado o terminado
+        $inscripcionesNoActivas = Inscripcion::whereHas('evento', function ($query) {
+            $query->where('fecha', '<', now())
+                ->orWhere('estado', 'cancelado')
+                ->orWhere('estado', 'terminado');
+        })->count();
 
-        return view('admin.dashboard', compact('nEventos', 'nUsuarios', 'nExperiencias', 'nEmpresas', 'nInscripciones', 'inscripcionesActivas'));
+        //idem para los eventos
+        $eventosActivos = Evento::where('fecha', '>=', now())
+            ->where('estado', 'creado')
+            ->count();
+        $eventosNoActivos = Evento::where('fecha', '<', now())
+            ->orWhere('estado', 'terminado')
+            ->orWhere('estado', 'cancelado')
+            ->count();
+
+        return view('admin.dashboard', compact('nEventos', 'nUsuarios', 'nExperiencias', 'nEmpresas', 'nInscripciones', 'inscripcionesActivas', 'inscripcionesNoActivas', 'eventosActivos', 'eventosNoActivos'));
     }
 
     /**

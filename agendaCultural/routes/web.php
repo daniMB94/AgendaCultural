@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventoController;
@@ -36,6 +37,7 @@ Route::prefix('asistente')->middleware(['auth', 'verified', 'mdrol:asistente'])-
 
 Route::prefix('admin')->middleware(['auth', 'verified', 'mdrol:admin'])->group(function () {
     Route::get('/dashboard', [EventoController::class, 'indexAdmin'])->name('admin.dashboard');
+    Route::get('/usuarios', [RegisteredUserController::class, 'show'])->name('admin.users');
 });
 
 

@@ -51,7 +51,7 @@ class RegisteredUserController extends Controller
 
     public function show()
     {
-        $users = User::with('empresa');
+        $users = User::with('empresa', 'inscripcions')->paginate(15);
 
         return view('admin.users', compact('users'));
     }

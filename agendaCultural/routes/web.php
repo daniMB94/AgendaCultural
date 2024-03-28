@@ -38,11 +38,16 @@ Route::prefix('asistente')->middleware(['auth', 'verified', 'mdrol:asistente'])-
 Route::prefix('admin')->middleware(['auth', 'verified', 'mdrol:admin'])->group(function () {
     Route::get('/dashboard', [EventoController::class, 'indexAdmin'])->name('admin.dashboard');
     Route::get('/usuarios', [RegisteredUserController::class, 'show'])->name('admin.users');
+    Route::get('/usuarios/delete/{id}', [ProfileController::class, 'destroyUser'])->name('usuarios.delete');
+    Route::get('/usuarios/update', function () {
+        return view('admin.userUpdateForm');
+    })->name('admin.userUpdateForm');
 });
 
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/profile', [ProfileController::class, 'editAdminUser'])->name('profile.editAdminUser');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });

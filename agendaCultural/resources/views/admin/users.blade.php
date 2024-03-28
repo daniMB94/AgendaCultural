@@ -20,7 +20,7 @@
 
 <body class="text-gray-800 font-inter">
     <!--sidenav -->
-    <div class="fixed left-0 top-0 w-64 h-full bg-[#f8f4f3] p-4 z-50 sidebar-menu transition-transform">
+    <div class="fixed left-0 top-0 w-56 h-full bg-[#f8f4f3] p-4 z-50 sidebar-menu transition-transform">
         <a href="#" class="flex items-center pb-4 border-b border-b-gray-800">
 
             <h2 class="font-bold text-2xl">LOREM <span class="bg-[#f84525] text-white px-2 rounded-md">IPSUM</span></h2>
@@ -63,7 +63,7 @@
     <div class="fixed top-0 left-0 w-full h-full bg-black/50 z-40 md:hidden sidebar-overlay"></div>
     <!-- end sidenav -->
 
-    <main class="w-full md:w-[calc(100%-256px)] md:ml-64 bg-gray-200 min-h-screen transition-all main">
+    <main class="w-full md:w-[calc(100%-224px)] md:ml-56 bg-gray-200 min-h-screen transition-all main">
         <!-- navbar -->
         <div class="py-2 px-6 bg-[#f8f4f3] flex items-center shadow-md shadow-black/5 sticky top-0 left-0 z-30">
             <button type="button" class="text-lg text-gray-900 font-semibold sidebar-toggle">
@@ -134,8 +134,8 @@
                             </div>
                         </div>
                         <div class="p-2 md:block text-left">
-                            <h2 class="text-sm font-semibold text-gray-800">John Doe</h2>
-                            <p class="text-xs text-gray-500">Administrator</p>
+                            <h2 class="text-sm font-semibold text-gray-800">{{ Auth::user()->nombre }}</h2>
+                            <p class="text-xs text-gray-500">Administrador</p>
                         </div>
                     </button>
                     <ul
@@ -174,8 +174,8 @@
                         <h2 class="text-lg font-medium text-gray-800 dark:text-white">Usuarios</h2>
 
                         <span
-                            class="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400">{{$users->count()}}
-                            . registrados</span>
+                            class="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400">{{$totalUsers}}
+                            registrados</span>
                     </div>
 
                 </div>
@@ -222,7 +222,7 @@
 
                                     <tr>
                                         <th scope="col"
-                                            class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                            class="py-3.5 px-3 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                             <button class="flex items-center gap-x-3 focus:outline-none">
                                                 <span>Usuario</span>
 
@@ -242,24 +242,30 @@
                                         </th>
 
                                         <th scope="col"
-                                            class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                            class="px-3 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                            Rol
+                                        </th>
+
+                                        <th scope="col"
+                                            class="px-3 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                             Empresa a la que pertenece
                                         </th>
 
                                         <th scope="col"
-                                            class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                            class="px-3 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                             Direccion
                                         </th>
 
                                         <th scope="col"
-                                            class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                            Teléfono</th>
+                                            class="px-3 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                            Eventos en los que está inscrito</th>
 
                                         <th scope="col"
-                                            class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                            Email</th>
+                                            class="px-3 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                            Contacto</th>
+
                                         <th scope="col"
-                                            class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                            class="px-3 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                             Opciones</th>
 
                                     </tr>
@@ -269,7 +275,7 @@
                                     @foreach($users as $user)
 
                                     <tr>
-                                        <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
+                                        <td class="px-3 py-4 text-sm font-medium whitespace-nowrap">
                                             <div>
                                                 <h2 class="font-medium text-gray-800 dark:text-white ">{{$user->nombre}}
                                                 </h2>
@@ -278,7 +284,10 @@
                                                 </p>
                                             </div>
                                         </td>
-                                        <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
+                                        <td class="px-3 py-4 text-sm font-medium whitespace-nowrap">
+                                            <p>{{$user->rol}}</p>
+                                        </td>
+                                        <td class="px-3 py-4 text-sm font-medium whitespace-nowrap">
                                             <div
                                                 class="inline px-3 py-1 text-sm font-normal text-gray-500 bg-gray-100 rounded-full dark:text-gray-400 gap-x-2 dark:bg-gray-800">
                                                 @if(strcmp($user->empresa->nombre, 'asistente') == 0)
@@ -288,73 +297,74 @@
                                                 @endif
                                             </div>
                                         </td>
-                                        <td class="px-4 py-4 text-sm whitespace-nowrap">
+                                        <td class="px-3 py-4 text-sm whitespace-nowrap">
                                             <div>
                                                 <h4 class="text-gray-700 dark:text-gray-200">{{$user->direccion}}</h4>
                                                 <p class="text-gray-500 dark:text-gray-400">{{$user->ciudad}}
                                                 </p>
                                             </div>
                                         </td>
-                                        <td class="px-4 py-4 text-sm whitespace-nowrap">
+                                        <td class="px-3 py-4 text-sm whitespace-nowrap">
                                             <div class="flex items-center">
-                                                <img class="object-cover w-6 h-6 -mx-1 border-2 border-white rounded-full dark:border-gray-700 shrink-0"
-                                                    src="{{asset('/images'. optional($user->inscripcion)->evento->imagen)}}"
-                                                    alt="">
-                                                <img class="object-cover w-6 h-6 -mx-1 border-2 border-white rounded-full dark:border-gray-700 shrink-0"
-                                                    src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=256&q=80"
-                                                    alt="">
-                                                <img class="object-cover w-6 h-6 -mx-1 border-2 border-white rounded-full dark:border-gray-700 shrink-0"
-                                                    src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1256&q=80"
-                                                    alt="">
-                                                <img class="object-cover w-6 h-6 -mx-1 border-2 border-white rounded-full dark:border-gray-700 shrink-0"
-                                                    src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=256&q=80"
-                                                    alt="">
-                                                <p
-                                                    class="flex items-center justify-center w-6 h-6 -mx-1 text-xs text-blue-600 bg-blue-100 border-2 border-white rounded-full">
-                                                    +4</p>
+                                                @php
+                                                $contador = 0;
+                                                @endphp
+
+                                                @if(optional($user->inscripcions)->count() > 0)
+
+                                                @foreach($user->inscripcions as $inscripcion)
+
+                                                @if($contador
+                                                < 4) <img
+                                                    class="object-cover w-6 h-6 -mx-1 border-2 border-white rounded-full dark:border-gray-700 shrink-0"
+                                                    src="{{ asset('images/' . $inscripcion->evento->imagen)}}" alt="">
+
+                                                    @endif
+
+                                                    @php
+                                                    $contador++;
+                                                    @endphp
+
+                                                    @endforeach
+                                                    @if($contador > 4)
+                                                    <p class="flex items-center justify-center w-6 h-6 -mx-1 text-xs text-blue-600 bg-blue-100 border-2 border-white rounded-full">
+                                                        +{{$contador-4}}
+                                                    </p>
+                                                    @endif
+                                                    @else
+                                                    <p>No tiene inscripciones</p>
+
+                                                    @endif
+
                                             </div>
                                         </td>
 
-                                        <td class="px-4 py-4 text-sm whitespace-nowrap">
-                                            <div
-                                                class="inline px-3 py-1 text-sm font-normal text-gray-500 bg-gray-100 rounded-full dark:text-gray-400 gap-x-2 dark:bg-gray-800">
-                                                {{ $user->telefono}}
+                                        <td class="px-3 py-4 text-sm whitespace-nowrap">
+                                            <div>
+                                                <p>Teléfono: <a class="text-gray-500 dark:text-gray-400">{{$user->telefono}}</a></p>
+                                                <p>Email: <a class="text-blue-500 dark:text-gray-400">{{$user->email}}</a></p>
                                             </div>
                                         </td>
 
-                                        <td class="px-4 py-4 text-sm whitespace-nowrap">
+                                        <td class="px-3 py-4 text-sm whitespace-nowrap">
                                             <ul class="dropdown ml-3">
-                                                <button type="button"
-                                                    class="dropdown-toggle px-1 py-1 text-gray-500 transition-colors duration-200 rounded-lg dark:text-gray-300 hover:bg-gray-100">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                                        class="w-6 h-6">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
+                                                <button type="button" class="dropdown-toggle px-1 py-1 text-gray-500 transition-colors duration-200 rounded-lg dark:text-gray-300 hover:bg-gray-100">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
                                                     </svg>
                                                 </button>
-                                                <ul
-                                                    class="dropdown-menu shadow-md shadow-black/5 z-30 hidden py-1.5 rounded-md bg-white border border-gray-100 w-full max-w-[140px]">
+                                                <ul class="dropdown-menu shadow-md shadow-black/5 z-30 hidden py-1.5 rounded-md bg-white border border-gray-100 w-full max-w-[140px]">
                                                     @if(strcmp($user->empresa->nombre, 'asistente') !== 0)
                                                     <li>
-                                                        <a href="#"
-                                                            class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-[#f84525] hover:bg-gray-50">Ver
+                                                        <a href="#" class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-[#f84525] hover:bg-gray-50">Ver
                                                             empresa</a>
                                                     </li>
                                                     @endif
                                                     <li>
-                                                        <a href="#"
-                                                            class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-[#f84525] hover:bg-gray-50">Eliminar</a>
+                                                        <a href="{{ route('usuarios.delete', ['id' => $user->id]) }}" class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-[#f84525] hover:bg-gray-50">Eliminar</a>
                                                     </li>
                                                     <li>
-                                                        <form method="POST" action="{{ route('logout') }}">
-                                                            @csrf
-                                                            <a class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-[#f84525] hover:bg-gray-50"
-                                                                :href="route('logout')" onclick="event.preventDefault();
-                                                this.closest('form').submit();">
-                                                                {{ __('Modificar') }}
-                                                            </a>
-                                                        </form>
+                                                        <a href="{{route('admin.userUpdateForm', ['user' => $user])}}" class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-[#f84525] hover:bg-gray-50">Modificar</a>
                                                     </li>
                                                 </ul>
                                             </ul>
@@ -380,213 +390,213 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
-    // start: Sidebar
-    const sidebarToggle = document.querySelector('.sidebar-toggle')
-    const sidebarOverlay = document.querySelector('.sidebar-overlay')
-    const sidebarMenu = document.querySelector('.sidebar-menu')
-    const main = document.querySelector('.main')
-    sidebarToggle.addEventListener('click', function(e) {
-        e.preventDefault()
-        main.classList.toggle('active')
-        sidebarOverlay.classList.toggle('hidden')
-        sidebarMenu.classList.toggle('-translate-x-full')
-    })
-    sidebarOverlay.addEventListener('click', function(e) {
-        e.preventDefault()
-        main.classList.add('active')
-        sidebarOverlay.classList.add('hidden')
-        sidebarMenu.classList.add('-translate-x-full')
-    })
-    document.querySelectorAll('.sidebar-dropdown-toggle').forEach(function(item) {
-        item.addEventListener('click', function(e) {
+        // start: Sidebar
+        const sidebarToggle = document.querySelector('.sidebar-toggle')
+        const sidebarOverlay = document.querySelector('.sidebar-overlay')
+        const sidebarMenu = document.querySelector('.sidebar-menu')
+        const main = document.querySelector('.main')
+        sidebarToggle.addEventListener('click', function(e) {
             e.preventDefault()
-            const parent = item.closest('.group')
-            if (parent.classList.contains('selected')) {
-                parent.classList.remove('selected')
-            } else {
-                document.querySelectorAll('.sidebar-dropdown-toggle').forEach(function(i) {
-                    i.closest('.group').classList.remove('selected')
-                })
-                parent.classList.add('selected')
-            }
+            main.classList.toggle('active')
+            sidebarOverlay.classList.toggle('hidden')
+            sidebarMenu.classList.toggle('-translate-x-full')
         })
-    })
-    // end: Sidebar
+        sidebarOverlay.addEventListener('click', function(e) {
+            e.preventDefault()
+            main.classList.add('active')
+            sidebarOverlay.classList.add('hidden')
+            sidebarMenu.classList.add('-translate-x-full')
+        })
+        document.querySelectorAll('.sidebar-dropdown-toggle').forEach(function(item) {
+            item.addEventListener('click', function(e) {
+                e.preventDefault()
+                const parent = item.closest('.group')
+                if (parent.classList.contains('selected')) {
+                    parent.classList.remove('selected')
+                } else {
+                    document.querySelectorAll('.sidebar-dropdown-toggle').forEach(function(i) {
+                        i.closest('.group').classList.remove('selected')
+                    })
+                    parent.classList.add('selected')
+                }
+            })
+        })
+        // end: Sidebar
 
 
 
-    // start: Popper
-    const popperInstance = {}
-    document.querySelectorAll('.dropdown').forEach(function(item, index) {
-        const popperId = 'popper-' + index
-        const toggle = item.querySelector('.dropdown-toggle')
-        const menu = item.querySelector('.dropdown-menu')
-        menu.dataset.popperId = popperId
-        popperInstance[popperId] = Popper.createPopper(toggle, menu, {
-            modifiers: [{
-                    name: 'offset',
-                    options: {
-                        offset: [0, 8],
+        // start: Popper
+        const popperInstance = {}
+        document.querySelectorAll('.dropdown').forEach(function(item, index) {
+            const popperId = 'popper-' + index
+            const toggle = item.querySelector('.dropdown-toggle')
+            const menu = item.querySelector('.dropdown-menu')
+            menu.dataset.popperId = popperId
+            popperInstance[popperId] = Popper.createPopper(toggle, menu, {
+                modifiers: [{
+                        name: 'offset',
+                        options: {
+                            offset: [0, 8],
+                        },
                     },
-                },
-                {
-                    name: 'preventOverflow',
-                    options: {
-                        padding: 24,
+                    {
+                        name: 'preventOverflow',
+                        options: {
+                            padding: 24,
+                        },
                     },
-                },
-            ],
-            placement: 'bottom-end'
-        });
-    })
-    document.addEventListener('click', function(e) {
-        const toggle = e.target.closest('.dropdown-toggle')
-        const menu = e.target.closest('.dropdown-menu')
-        if (toggle) {
-            const menuEl = toggle.closest('.dropdown').querySelector('.dropdown-menu')
-            const popperId = menuEl.dataset.popperId
-            if (menuEl.classList.contains('hidden')) {
+                ],
+                placement: 'bottom-end'
+            });
+        })
+        document.addEventListener('click', function(e) {
+            const toggle = e.target.closest('.dropdown-toggle')
+            const menu = e.target.closest('.dropdown-menu')
+            if (toggle) {
+                const menuEl = toggle.closest('.dropdown').querySelector('.dropdown-menu')
+                const popperId = menuEl.dataset.popperId
+                if (menuEl.classList.contains('hidden')) {
+                    hideDropdown()
+                    menuEl.classList.remove('hidden')
+                    showPopper(popperId)
+                } else {
+                    menuEl.classList.add('hidden')
+                    hidePopper(popperId)
+                }
+            } else if (!menu) {
                 hideDropdown()
-                menuEl.classList.remove('hidden')
-                showPopper(popperId)
-            } else {
-                menuEl.classList.add('hidden')
-                hidePopper(popperId)
             }
-        } else if (!menu) {
-            hideDropdown()
+        })
+
+        function hideDropdown() {
+            document.querySelectorAll('.dropdown-menu').forEach(function(item) {
+                item.classList.add('hidden')
+            })
         }
-    })
 
-    function hideDropdown() {
-        document.querySelectorAll('.dropdown-menu').forEach(function(item) {
-            item.classList.add('hidden')
-        })
-    }
+        function showPopper(popperId) {
+            popperInstance[popperId].setOptions(function(options) {
+                return {
+                    ...options,
+                    modifiers: [
+                        ...options.modifiers,
+                        {
+                            name: 'eventListeners',
+                            enabled: true
+                        },
+                    ],
+                }
+            });
+            popperInstance[popperId].update();
+        }
 
-    function showPopper(popperId) {
-        popperInstance[popperId].setOptions(function(options) {
-            return {
-                ...options,
-                modifiers: [
-                    ...options.modifiers,
-                    {
-                        name: 'eventListeners',
-                        enabled: true
-                    },
-                ],
-            }
-        });
-        popperInstance[popperId].update();
-    }
-
-    function hidePopper(popperId) {
-        popperInstance[popperId].setOptions(function(options) {
-            return {
-                ...options,
-                modifiers: [
-                    ...options.modifiers,
-                    {
-                        name: 'eventListeners',
-                        enabled: false
-                    },
-                ],
-            }
-        });
-    }
-    // end: Popper
+        function hidePopper(popperId) {
+            popperInstance[popperId].setOptions(function(options) {
+                return {
+                    ...options,
+                    modifiers: [
+                        ...options.modifiers,
+                        {
+                            name: 'eventListeners',
+                            enabled: false
+                        },
+                    ],
+                }
+            });
+        }
+        // end: Popper
 
 
 
-    // start: Tab
-    document.querySelectorAll('[data-tab]').forEach(function(item) {
-        item.addEventListener('click', function(e) {
-            e.preventDefault()
-            const tab = item.dataset.tab
-            const page = item.dataset.tabPage
-            const target = document.querySelector('[data-tab-for="' + tab + '"][data-page="' + page +
-                '"]')
-            document.querySelectorAll('[data-tab="' + tab + '"]').forEach(function(i) {
-                i.classList.remove('active')
+        // start: Tab
+        document.querySelectorAll('[data-tab]').forEach(function(item) {
+            item.addEventListener('click', function(e) {
+                e.preventDefault()
+                const tab = item.dataset.tab
+                const page = item.dataset.tabPage
+                const target = document.querySelector('[data-tab-for="' + tab + '"][data-page="' + page +
+                    '"]')
+                document.querySelectorAll('[data-tab="' + tab + '"]').forEach(function(i) {
+                    i.classList.remove('active')
+                })
+                document.querySelectorAll('[data-tab-for="' + tab + '"]').forEach(function(i) {
+                    i.classList.add('hidden')
+                })
+                item.classList.add('active')
+                target.classList.remove('hidden')
             })
-            document.querySelectorAll('[data-tab-for="' + tab + '"]').forEach(function(i) {
-                i.classList.add('hidden')
-            })
-            item.classList.add('active')
-            target.classList.remove('hidden')
         })
-    })
-    // end: Tab
+        // end: Tab
 
 
 
-    // start: Chart
-    new Chart(document.getElementById('order-chart'), {
-        type: 'line',
-        data: {
-            labels: generateNDays(7),
-            datasets: [{
-                    label: 'Active',
-                    data: generateRandomData(7),
-                    borderWidth: 1,
-                    fill: true,
-                    pointBackgroundColor: 'rgb(59, 130, 246)',
-                    borderColor: 'rgb(59, 130, 246)',
-                    backgroundColor: 'rgb(59 130 246 / .05)',
-                    tension: .2
-                },
-                {
-                    label: 'Completed',
-                    data: generateRandomData(7),
-                    borderWidth: 1,
-                    fill: true,
-                    pointBackgroundColor: 'rgb(16, 185, 129)',
-                    borderColor: 'rgb(16, 185, 129)',
-                    backgroundColor: 'rgb(16 185 129 / .05)',
-                    tension: .2
-                },
-                {
-                    label: 'Canceled',
-                    data: generateRandomData(7),
-                    borderWidth: 1,
-                    fill: true,
-                    pointBackgroundColor: 'rgb(244, 63, 94)',
-                    borderColor: 'rgb(244, 63, 94)',
-                    backgroundColor: 'rgb(244 63 94 / .05)',
-                    tension: .2
-                },
-            ]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
+        // start: Chart
+        new Chart(document.getElementById('order-chart'), {
+            type: 'line',
+            data: {
+                labels: generateNDays(7),
+                datasets: [{
+                        label: 'Active',
+                        data: generateRandomData(7),
+                        borderWidth: 1,
+                        fill: true,
+                        pointBackgroundColor: 'rgb(59, 130, 246)',
+                        borderColor: 'rgb(59, 130, 246)',
+                        backgroundColor: 'rgb(59 130 246 / .05)',
+                        tension: .2
+                    },
+                    {
+                        label: 'Completed',
+                        data: generateRandomData(7),
+                        borderWidth: 1,
+                        fill: true,
+                        pointBackgroundColor: 'rgb(16, 185, 129)',
+                        borderColor: 'rgb(16, 185, 129)',
+                        backgroundColor: 'rgb(16 185 129 / .05)',
+                        tension: .2
+                    },
+                    {
+                        label: 'Canceled',
+                        data: generateRandomData(7),
+                        borderWidth: 1,
+                        fill: true,
+                        pointBackgroundColor: 'rgb(244, 63, 94)',
+                        borderColor: 'rgb(244, 63, 94)',
+                        backgroundColor: 'rgb(244 63 94 / .05)',
+                        tension: .2
+                    },
+                ]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
                 }
             }
-        }
-    });
+        });
 
-    function generateNDays(n) {
-        const data = []
-        for (let i = 0; i < n; i++) {
-            const date = new Date()
-            date.setDate(date.getDate() - i)
-            data.push(date.toLocaleString('en-US', {
-                month: 'short',
-                day: 'numeric'
-            }))
+        function generateNDays(n) {
+            const data = []
+            for (let i = 0; i < n; i++) {
+                const date = new Date()
+                date.setDate(date.getDate() - i)
+                data.push(date.toLocaleString('en-US', {
+                    month: 'short',
+                    day: 'numeric'
+                }))
+            }
+            return data
         }
-        return data
-    }
 
-    function generateRandomData(n) {
-        const data = []
-        for (let i = 0; i < n; i++) {
-            data.push(Math.round(Math.random() * 10))
+        function generateRandomData(n) {
+            const data = []
+            for (let i = 0; i < n; i++) {
+                data.push(Math.round(Math.random() * 10))
+            }
+            return data
         }
-        return data
-    }
-    // end: Chart
+        // end: Chart
     </script>
 
 </body>

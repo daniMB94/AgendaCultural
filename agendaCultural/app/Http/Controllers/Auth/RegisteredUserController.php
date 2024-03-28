@@ -52,7 +52,8 @@ class RegisteredUserController extends Controller
     public function show()
     {
         $users = User::with('empresa', 'inscripcions')->paginate(15);
+        $totalUsers = User::count();
 
-        return view('admin.users', compact('users'));
+        return view('admin.users', compact('users', 'totalUsers'));
     }
 }

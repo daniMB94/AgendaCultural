@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use App\Models\User;
+use App\Models\Empresa;
 
 class ProfileController extends Controller
 {
@@ -63,6 +64,32 @@ class ProfileController extends Controller
     public function destroyUser($id)
     {
         User::destroy($id);
+        return redirect()->route('admin.users');
+    }
+
+    public function userUpdateForm($id)
+    {
+        $user = User::where('id', intval($id))->first();
+        $empresas = Empresa::all();
+
+        return view('admin.userUpdateForm', compact('user', 'empresas'));
+    }
+    public function userUpdate(Request $request)
+    {
+        $user = User::where('id', intval($request->id))->first();
+
+        $user->nombre = $request->nombre;
+        $user->apellidos = $request->apellidos;
+        $user->edad = $request->edad;
+        $user->direccion = $request->direccion;
+        $user->ciudad = $request->ciudad;
+        $user->telefono = $request->telefono;
+        $user->email = $request->email;
+        $user->rol = $request->rol;
+        $user->empresa_id = $request->empresa;
+
+        $user->save();
+
         return redirect()->route('admin.users');
     }
 }

@@ -39,9 +39,8 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'mdrol:admin'])->group(f
     Route::get('/dashboard', [EventoController::class, 'indexAdmin'])->name('admin.dashboard');
     Route::get('/usuarios', [RegisteredUserController::class, 'show'])->name('admin.users');
     Route::get('/usuarios/delete/{id}', [ProfileController::class, 'destroyUser'])->name('usuarios.delete');
-    Route::get('/usuarios/update', function () {
-        return view('admin.userUpdateForm');
-    })->name('admin.userUpdateForm');
+    Route::get('/usuarios/updateForm/{id}', [ProfileController::class, 'userUpdateForm'])->name('admin.userUpdateForm');
+    Route::post('/usuarios/update', [ProfileController::class, 'userUpdate'])->name('admin.userUpdate');
 });
 
 

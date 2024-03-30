@@ -92,4 +92,16 @@ class ProfileController extends Controller
 
         return redirect()->route('admin.users');
     }
+
+    public function userCreateForm()
+    {
+        $empresas = Empresa::all();
+
+        return view('admin.userNewForm', compact('empresas'));
+    }
+
+    public function storeUser(Request $request)
+    {
+        echo 'Hola';
+    }
 }

@@ -34,9 +34,11 @@ class EmpresaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Empresa $empresa)
+    public function companyDetails($id)
     {
-        //
+        $empresa = Empresa::where('id', intval($id))->first();
+
+        return view('admin.companyDetails', compact('empresa'));
     }
 
     /**

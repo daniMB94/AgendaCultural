@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventoController;
 use App\Http\Controllers\ExperienciaController;
 use App\Http\Controllers\InscripcionController;
+use App\Http\Controllers\EmpresaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,9 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'mdrol:admin'])->group(f
     Route::get('/usuarios/delete/{id}', [ProfileController::class, 'destroyUser'])->name('usuarios.delete');
     Route::get('/usuarios/updateForm/{id}', [ProfileController::class, 'userUpdateForm'])->name('admin.userUpdateForm');
     Route::post('/usuarios/update', [ProfileController::class, 'userUpdate'])->name('admin.userUpdate');
+    Route::get('/empresa/detalle/{id}', [EmpresaController::class, 'companyDetails'])->name('admin.companyDetails');
+    Route::get('/usuarios/nuevo', [ProfileController::class, 'userCreateForm'])->name('admin.userCreateForm');
+    Route::post('/usuarios/save', [ProfileController::class, 'storeUser'])->name('admin.storeUser');
 });
 
 

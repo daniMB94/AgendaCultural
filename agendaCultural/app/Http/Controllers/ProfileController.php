@@ -11,6 +11,11 @@ use Illuminate\View\View;
 use App\Models\User;
 use App\Models\Empresa;
 
+use App\Http\Controllers\Controller;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules;
+
 class ProfileController extends Controller
 {
     /**
@@ -100,8 +105,32 @@ class ProfileController extends Controller
         return view('admin.userNewForm', compact('empresas'));
     }
 
-    public function storeUser(Request $request)
+    public function storeUser(Request $request): RedirectResponse
     {
-        echo 'Hola';
+
+        $user = User::create([
+
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+
+        event(new Registered($user));
+
+        $user->nombre = $request->name;
+        $user->apellidos = $request->apellidos;
+        $user->edad = $request->edad;
+        $user->direccion = $request->direccion;
+        $user->ciudad = $request->ciudad;
+        $user->telefono = $request->telefono;
+        $user->rol = $request->rol;
+        if ($request->rol === "asistente") {
+            $user->empresa_id = 7;
+        } else if ($request->rol === "admin") {
+            $user->empresa_id = 6;
+        }
+
+        $user->save();
+
+        return redirect(route('admin.users'));
     }
 }

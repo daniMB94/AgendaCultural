@@ -91,7 +91,14 @@ class ProfileController extends Controller
         $user->telefono = $request->telefono;
         $user->email = $request->email;
         $user->rol = $request->rol;
-        $user->empresa_id = $request->empresa;
+        if ($request->rol === "asistente") {
+            $empresa_id = 7;
+        } else if ($request->rol === "admin") {
+            $empresa_id = 6;
+        } else {
+            $empresa_id = $request->empresa;
+        }
+        $user->empresa_id = intval($empresa_id);
 
         $user->save();
 
@@ -108,28 +115,30 @@ class ProfileController extends Controller
     public function storeUser(Request $request): RedirectResponse
     {
 
-        $user = User::create([
+        if ($request->rol === "asistente") {
+            $empresa_id = 7;
+        } else if ($request->rol === "admin") {
+            $empresa_id = 6;
+        } else {
+            $empresa_id = $request->rol;
+        }
 
+        $user = User::create([
+            'nombre' => $request->nombre,
+            'apellidos' => $request->apellidos,
+            'edad' => $request->edad,
+            'direccion' => $request->direccion,
+            'ciudad' => $request->ciudad,
+            'telefono' => $request->telefono,
             'email' => $request->email,
+            'email_verified_at' => now(),
             'password' => Hash::make($request->password),
+            'rol' => $request->rol,
+            'empresa_id' => $empresa_id
         ]);
 
         event(new Registered($user));
 
-        $user->nombre = $request->name;
-        $user->apellidos = $request->apellidos;
-        $user->edad = $request->edad;
-        $user->direccion = $request->direccion;
-        $user->ciudad = $request->ciudad;
-        $user->telefono = $request->telefono;
-        $user->rol = $request->rol;
-        if ($request->rol === "asistente") {
-            $user->empresa_id = 7;
-        } else if ($request->rol === "admin") {
-            $user->empresa_id = 6;
-        }
-
-        $user->save();
 
         return redirect(route('admin.users'));
     }

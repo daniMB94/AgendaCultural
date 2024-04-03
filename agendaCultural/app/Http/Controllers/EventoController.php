@@ -78,6 +78,21 @@ class EventoController extends Controller
         return view('admin.dashboard', compact('nEventos', 'nUsuarios', 'nExperiencias', 'nEmpresas', 'nInscripciones', 'inscripcionesActivas', 'inscripcionesNoActivas', 'eventosActivos', 'eventosNoActivos'));
     }
 
+    public function show()
+    {
+        $events = Evento::with('categoria')->paginate(15);
+        $totalEvents = Evento::count();
+
+
+
+        return view('admin.events', compact('events', 'totalEvents'));
+    }
+
+    public function eventCretaeForm()
+    {
+        return view('admin.eventNewForm');
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -147,6 +162,14 @@ class EventoController extends Controller
         //
     }
 
+    public function eventUpdateForm($id)
+    {
+        $evento = Evento::where('id', intval($id))->first();
+        $categorias = Categoria::all();
+
+        return view('admin.eventUpdateForm', compact('evento', 'categorias'));
+    }
+
     /**
      * Update the specified resource in storage.
      */
@@ -158,9 +181,10 @@ class EventoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Evento $evento)
+    public function destroyEvent($id)
     {
-        //
+        Evento::destroy($id);
+        return redirect()->route('admin.events');
     }
 
     public function filtrarCategoria(Request $request)

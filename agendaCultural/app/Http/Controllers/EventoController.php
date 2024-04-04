@@ -187,7 +187,25 @@ class EventoController extends Controller
         return redirect()->route('admin.events');
     }
 
-    public function filtrarCategoria(Request $request)
+    public function eventDetails($id)
     {
+        $evento = Evento::where('id', intval($id))->first();
+        return view('admin.eventDetails', compact('evento'));
+    }
+    public function eventInscriptions($id)
+    {
+        $inscripciones = Inscripcion::where('evento_id', intval($id))->get();
+
+        return view('admin.eventInscriptions', compact('inscripciones'));
+    }
+    public function eventCancelation(Request $request)
+    {
+        $evento = Evento::where('id', intval($request->id))->first();
+
+        $evento->estado = 'cancelado';
+
+        $evento->save();
+
+        return redirect(route('admin.events'));
     }
 }

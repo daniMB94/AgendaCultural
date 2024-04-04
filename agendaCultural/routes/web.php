@@ -51,6 +51,9 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'mdrol:admin'])->group(f
     Route::get('/eventos/delete/{id}', [EventoController::class, 'destroyEvent'])->name('admin.eventDelete');
     Route::get('/eventos/updateForm/{id}', [EventoController::class, 'eventUpdateForm'])->name('admin.eventUpdateForm');
     Route::post('/eventos/update', [EventoController::class, 'eventUpdate'])->name('admin.eventUpdate');
+    Route::get('/eventos/inscripciones/{id}', [EventoController::class, 'eventInscriptions'])->name('admin.eventInscriptions');
+    Route::post('/eventos/cancelacion', [EventoController::class, 'eventCancelation'])->name('admin.eventCancelation');
+    Route::post('/eventos/inscripciones/delete', [InscripcionController::class, 'inscriptionsDelete'])->name('admin.inscriptionsDelete');
 });
 
 

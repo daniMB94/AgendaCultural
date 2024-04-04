@@ -70,4 +70,9 @@ class InscripcionController extends Controller
     {
         //
     }
+
+    public function inscriptionsDelete(Request $request)
+    {
+        //recorrer el array de checkboxes marcados para eliminar cada una de las inscripciones asociadas al evento
+    }
 }

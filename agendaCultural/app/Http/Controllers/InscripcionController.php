@@ -74,5 +74,18 @@ class InscripcionController extends Controller
     public function inscriptionsDelete(Request $request)
     {
         //recorrer el array de checkboxes marcados para eliminar cada una de las inscripciones asociadas al evento
+
+        if ($request->has('eliminarInscripcion')) {
+
+            $ids = $request->input('eliminarInscripcion');
+
+
+            foreach ($ids as $id) {
+
+                echo "ID de inscripción a eliminar: $id <br>";
+            }
+        } else {
+            echo "No se seleccionaron inscripciones para eliminar.";
+        }
     }
 }

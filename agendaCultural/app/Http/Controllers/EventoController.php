@@ -195,8 +195,9 @@ class EventoController extends Controller
     public function eventInscriptions($id)
     {
         $inscripciones = Inscripcion::where('evento_id', intval($id))->get();
+        $evento = Evento::find(intval($id));
 
-        return view('admin.eventInscriptions', compact('inscripciones'));
+        return view('admin.eventInscriptions', compact('inscripciones', 'evento'));
     }
     public function eventCancelation(Request $request)
     {

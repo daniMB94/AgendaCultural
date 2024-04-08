@@ -129,11 +129,12 @@
                         <li>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                                <a class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-[#f84525] hover:bg-gray-50"
-                                    :href="route('logout')" onclick="event.preventDefault();
+                                <button><a
+                                        class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-[#f84525] hover:bg-gray-50"
+                                        :href="route('logout')" onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                                    {{ __('Log Out') }}
-                                </a>
+                                        {{ __('Log Out') }}
+                                    </a></button>
                             </form>
                         </li>
                     </ul>
@@ -299,11 +300,12 @@
                                                             action="{{ route('admin.eventCancelation') }}">
                                                             @csrf
                                                             <input type="hidden" value="{{$event->id}}" name="id">
-                                                            <a class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-[#f84525] hover:bg-gray-50"
-                                                                onclick="event.preventDefault();
+                                                            <button><a
+                                                                    class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-[#f84525] hover:bg-gray-50"
+                                                                    onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                                                                Cancelar evento
-                                                            </a>
+                                                                    Cancelar evento
+                                                                </a></button>
                                                         </form>
                                                     </li>
 

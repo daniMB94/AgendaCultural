@@ -47,6 +47,7 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'mdrol:admin'])->group(f
     Route::post('/usuarios/save', [ProfileController::class, 'storeUser'])->name('admin.storeUser');
     Route::get('/eventos', [EventoController::class, 'show'])->name('admin.events');
     Route::get('/eventos/nuevo', [EventoController::class, 'eventCretaeForm'])->name('admin.eventCreateForm');
+    Route::post('/eventos/save', [EventoController::class, 'storeEvent'])->name('admin.storeEvent');
     Route::get('/eventos/detalle/{id}', [EventoController::class, 'eventDetails'])->name('admin.eventDetails');
     Route::get('/eventos/delete/{id}', [EventoController::class, 'destroyEvent'])->name('admin.eventDelete');
     Route::get('/eventos/updateForm/{id}', [EventoController::class, 'eventUpdateForm'])->name('admin.eventUpdateForm');

@@ -104,7 +104,7 @@ class EventoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function storeEvent(Request $request)
     {
     }
 
@@ -173,9 +173,25 @@ class EventoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Evento $evento)
+    public function eventUpdate(Request $request, Evento $evento)
     {
-        //
+
+        $evento = Evento::find(intval($request->id));
+
+        $evento->nombre = $request->nombre;
+        $evento->fecha = $request->fecha;
+        $evento->hora = $request->hora;
+        $evento->descripcion = $request->descripcion;
+        $evento->estado = $request->estado;
+        $evento->aforoMax = $request->aforoMax;
+        $evento->ciudad = $request->ciudad;
+        $evento->direccion = $request->direccion;
+        $evento->tipo = $request->tipo;
+        $evento->categoria_id = $request->categoria_id;
+
+        $evento->save();
+
+        return redirect(route('admin.events'));
     }
 
     /**

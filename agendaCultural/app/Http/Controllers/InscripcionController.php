@@ -82,8 +82,9 @@ class InscripcionController extends Controller
 
             foreach ($ids as $id) {
 
-                echo "ID de inscripción a eliminar: $id <br>";
+                Inscripcion::destroy($id);
             }
+            return view('admin.eventInscriptions');
         } else {
             echo "No se seleccionaron inscripciones para eliminar.";
         }

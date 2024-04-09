@@ -22,7 +22,13 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
 
-    return view('welcome');
+    if (isset(Auth::user()->rol) && Auth::user()->rol == 'admin') {
+        return redirect(route('admin.dashboard'));
+    } elseif (isset(Auth::user()->rol) && Auth::user()->rol == 'asistente') {
+        return redirect(route('asistente.eventos'));
+    } else {
+        return view('welcome');
+    }
 });
 
 Route::prefix('asistente')->middleware(['auth', 'verified', 'mdrol:asistente'])->group(function () {

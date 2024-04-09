@@ -63,6 +63,8 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'mdrol:admin'])->group(f
     Route::get('/eventos/inscripciones/{id}', [EventoController::class, 'eventInscriptions'])->name('admin.eventInscriptions');
     Route::post('/eventos/cancelacion', [EventoController::class, 'eventCancelation'])->name('admin.eventCancelation');
     Route::post('/eventos/inscripciones/delete', [InscripcionController::class, 'inscriptionsDelete'])->name('admin.inscriptionsDelete');
+    Route::get('/experiencias', [ExperienciaController::class, 'indexAdmin'])->name('admin.experiences');
+    Route::get('/experiencias/delete/{id}', [ExperienciaController::class, 'experienceDelete'])->name('admin.experienceDelete');
 });
 
 

@@ -25,6 +25,15 @@ class ExperienciaController extends Controller
         return view('asistente.experiencias', compact('experiencias'));
     }
 
+    public function indexAdmin()
+    {
+        $experiencias = Experiencia::with('empresa')->paginate(15);
+
+        $totalExperiences = Experiencia::count();
+
+        return view('admin.experiences', compact('experiencias', 'totalExperiences'));
+    }
+
 
     /**
      * Show the form for creating a new resource.

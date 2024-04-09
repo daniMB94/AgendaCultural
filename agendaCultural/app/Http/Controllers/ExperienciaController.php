@@ -78,8 +78,10 @@ class ExperienciaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Experiencia $experiencia)
+    public function experienceDelete($id)
     {
-        //
+        Experiencia::destroy($id);
+
+        return redirect(route('admin.experiences'));
     }
 }

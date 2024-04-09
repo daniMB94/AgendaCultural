@@ -122,7 +122,7 @@ class EventoController extends Controller
         $evento->descripcion = $request->descripcion;
         $evento->ciudad = $request->ciudad;
         $evento->direccion = $request->direccion;
-        $evento->estado = $request->estado;
+        $evento->estado = 'creado';
         $evento->aforoMax = $request->aforoMax;
         $evento->tipo = $request->tipo;
         $evento->numMaxEntradasPersona = $request->numMaxEntradasPersona;

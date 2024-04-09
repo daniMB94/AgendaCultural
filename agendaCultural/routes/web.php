@@ -7,6 +7,7 @@ use App\Http\Controllers\EventoController;
 use App\Http\Controllers\ExperienciaController;
 use App\Http\Controllers\InscripcionController;
 use App\Http\Controllers\EmpresaController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,7 @@ use App\Http\Controllers\EmpresaController;
 */
 
 Route::get('/', function () {
+
     return view('welcome');
 });
 

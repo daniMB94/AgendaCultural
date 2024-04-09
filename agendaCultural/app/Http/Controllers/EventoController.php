@@ -21,7 +21,7 @@ class EventoController extends Controller
         $eventos = Evento::all();
         //obtenemos las categorias para usarlas en la creacion del filtro de la vista
         $categorias = Categoria::all();
-        //Comprobmaos si la request lleva categoria par filtrar los eventos que se pintarán
+        //Comprobamos si la request lleva categoria par filtrar los eventos que se pintarán
         if (isset($request['categoria']) && is_numeric($request->categoria)) {
             $categoriaFiltro = $request->categoria;
         } else {
@@ -35,6 +35,15 @@ class EventoController extends Controller
             }
             $evento->save();
         }
+
+        //Recorremos los eventos para establecer como creados los que tiene una fecha anterior a hoy y que no están cancelados
+        foreach ($eventos as $evento) {
+            if ($evento->fecha >= now() && $evento->estado != 'cancelado') {
+                $evento->estado = 'creado';
+            }
+            $evento->save();
+        }
+
         //Posteriormente recuperamos todos los eventos con su relacion user y categoria para pintarlos
         $eventosFiltrados = Evento::with(['user', 'categoria'])
             ->orderBy('fecha', 'asc');
@@ -96,9 +105,8 @@ class EventoController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
     }
 
     /**
@@ -106,6 +114,25 @@ class EventoController extends Controller
      */
     public function storeEvent(Request $request)
     {
+        $evento = new Evento();
+
+        $evento->nombre = $request->nombre;
+        $evento->fecha = $request->fecha;
+        $evento->hora = $request->hora;
+        $evento->descripcion = $request->descripcion;
+        $evento->ciudad = $request->ciudad;
+        $evento->direccion = $request->direccion;
+        $evento->estado = $request->estado;
+        $evento->aforoMax = $request->aforoMax;
+        $evento->tipo = $request->tipo;
+        $evento->numMaxEntradasPersona = $request->numMaxEntradasPersona;
+        $evento->categoria_id = $request->categoria_id;
+        $evento->imagen = $request->imagen;
+        $evento->user_id = $request->user_id;
+
+        $evento->save();
+
+        return redirect(route('admin.events'));
     }
 
     /**
@@ -122,8 +149,8 @@ class EventoController extends Controller
             $categoriaFiltro = false;
         }
         $eventosFiltrados = Evento::with(['user', 'categoria'])
-            ->whereYear('fecha', '>=', now()->year)
-            ->whereMonth('fecha', '<=', now()->month);
+            ->whereYear('fecha',  now()->year)
+            ->whereMonth('fecha', now()->month);
         if ($categoriaFiltro) {
             $eventosFiltrados->where('categoria_id', $categoriaFiltro);
         }
@@ -182,7 +209,9 @@ class EventoController extends Controller
         $evento->fecha = $request->fecha;
         $evento->hora = $request->hora;
         $evento->descripcion = $request->descripcion;
-        $evento->estado = $request->estado;
+        if ($evento->estado != 'creado' && $request->fecha >= now()) {
+            $evento->estado = 'creado';
+        }
         $evento->aforoMax = $request->aforoMax;
         $evento->ciudad = $request->ciudad;
         $evento->direccion = $request->direccion;

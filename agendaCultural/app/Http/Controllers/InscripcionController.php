@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Inscripcion;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class InscripcionController extends Controller
@@ -10,9 +11,13 @@ class InscripcionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($user_id)
     {
-        $inscripciones = Inscripcion::with(['evento'])->paginate(8);
+
+        $inscripciones = Inscripcion::where('user_id', intval($user_id))
+            ->with(['evento'])->paginate(8);
+
+
         return view('asistente.inscripciones', compact('inscripciones'));
     }
 
@@ -37,7 +42,7 @@ class InscripcionController extends Controller
 
         $inscripcion->save();
 
-        return redirect()->route('inscripciones.show');
+        return redirect()->route('inscripciones.show', ['user_id' => Auth::user()->id]);
     }
 
     /**

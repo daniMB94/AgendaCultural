@@ -50,7 +50,7 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('inscripciones.show')">
+                        <x-dropdown-link :href="route('inscripciones.show', ['user_id' => Auth::user()->id])">
                             {{ __('Mis inscripciones') }}
                         </x-dropdown-link>
 

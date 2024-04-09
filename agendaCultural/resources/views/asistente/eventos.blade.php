@@ -10,12 +10,14 @@
                 </x-subnav-link>
             </div>
             <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                <x-subnav-link :href="route('asistente.eventos.semana')" :active="request()->routeIs('asistente.eventos.semana')">
+                <x-subnav-link :href="route('asistente.eventos.semana')"
+                    :active="request()->routeIs('asistente.eventos.semana')">
                     {{ __('Eventos de la semana') }}
                 </x-subnav-link>
             </div>
             <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                <x-subnav-link :href="route('asistente.eventos.mes')" :active="request()->routeIs('asistente.eventos.mes')">
+                <x-subnav-link :href="route('asistente.eventos.mes')"
+                    :active="request()->routeIs('asistente.eventos.mes')">
                     {{ __('Eventos del mes') }}
                 </x-subnav-link>
             </div>
@@ -25,7 +27,7 @@
                 @csrf
                 <!-- Token de seguridad para formularios en Laravel -->
 
-                <label for="fruta">Categorias:</label>
+                <label for="categoria">Categorias:</label>
                 <select name="categoria" class="w-64 rounded">
                     <option selected value="todas">Todas las categorias </option>
                     @foreach($categorias as $categoria)
@@ -33,7 +35,9 @@
                     @endforeach
                 </select>
                 <input type="hidden" name="ruta" value="{{request()->path()}}">
-                <button class="inline-block bg-green-200 rounded border-2 border-green-700 px-1 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2" type="submit">Filtrar</button>
+                <button
+                    class="inline-block bg-green-200 rounded border-2 border-green-700 px-1 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+                    type="submit">Filtrar</button>
             </form>
         </div>
     </x-slot>
@@ -45,7 +49,8 @@
                     @foreach ($eventos as $evento)
 
                     <div class="flex flex-col justify-between max-w-sm rounded overflow-hidden shadow-lg">
-                        <img class="w-full h-48 object-cover" src="{{ asset('images/' . $evento->imagen) }}" alt="Sunset in the mountains">
+                        <img class="w-full h-48 object-cover" src="{{ asset('images/' . $evento->imagen) }}"
+                            alt="Sunset in the mountains">
 
                         <div class="px-6 py-4">
                             <div class="font-bold text-xl mb-2">{{ $evento->nombre }}
@@ -54,15 +59,23 @@
                             <p class="text-gray-700 text-base">
                                 {{ $evento->descripcion }}
                             </p>
-                            @if($evento->estado == 'terminado') <div class="flex items-center bg-blue-500 text-white text-sm font-bold rounded px-4 py-3" role="alert">
-                                <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <path d="M12.432 0c1.34 0 2.01.912 2.01 1.957 0 1.305-1.164 2.512-2.679 2.512-1.269 0-2.009-.75-1.974-1.99C9.789 1.436 10.67 0 12.432 0zM8.309 20c-1.058 0-1.833-.652-1.093-3.524l1.214-5.092c.211-.814.246-1.141 0-1.141-.317 0-1.689.562-2.502 1.117l-.528-.88c2.572-2.186 5.531-3.467 6.801-3.467 1.057 0 1.233 1.273.705 3.23l-1.391 5.352c-.246.945-.141 1.271.106 1.271.317 0 1.357-.392 2.379-1.207l.6.814C12.098 19.02 9.365 20 8.309 20z" />
+                            @if($evento->estado == 'terminado') <div
+                                class="flex items-center bg-blue-500 text-white text-sm font-bold rounded px-4 py-3"
+                                role="alert">
+                                <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 20 20">
+                                    <path
+                                        d="M12.432 0c1.34 0 2.01.912 2.01 1.957 0 1.305-1.164 2.512-2.679 2.512-1.269 0-2.009-.75-1.974-1.99C9.789 1.436 10.67 0 12.432 0zM8.309 20c-1.058 0-1.833-.652-1.093-3.524l1.214-5.092c.211-.814.246-1.141 0-1.141-.317 0-1.689.562-2.502 1.117l-.528-.88c2.572-2.186 5.531-3.467 6.801-3.467 1.057 0 1.233 1.273.705 3.23l-1.391 5.352c-.246.945-.141 1.271.106 1.271.317 0 1.357-.392 2.379-1.207l.6.814C12.098 19.02 9.365 20 8.309 20z" />
                                 </svg>
                                 <p>Finalizado el {{$evento->fecha}}</p>
                             </div>
-                            @elseif($evento->estado == 'cancelado') <div class="flex items-center bg-red-500 text-white text-sm font-bold rounded px-4 py-3" role="alert">
-                                <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <path d="M12.432 0c1.34 0 2.01.912 2.01 1.957 0 1.305-1.164 2.512-2.679 2.512-1.269 0-2.009-.75-1.974-1.99C9.789 1.436 10.67 0 12.432 0zM8.309 20c-1.058 0-1.833-.652-1.093-3.524l1.214-5.092c.211-.814.246-1.141 0-1.141-.317 0-1.689.562-2.502 1.117l-.528-.88c2.572-2.186 5.531-3.467 6.801-3.467 1.057 0 1.233 1.273.705 3.23l-1.391 5.352c-.246.945-.141 1.271.106 1.271.317 0 1.357-.392 2.379-1.207l.6.814C12.098 19.02 9.365 20 8.309 20z" />
+                            @elseif($evento->estado == 'cancelado') <div
+                                class="flex items-center bg-red-500 text-white text-sm font-bold rounded px-4 py-3"
+                                role="alert">
+                                <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 20 20">
+                                    <path
+                                        d="M12.432 0c1.34 0 2.01.912 2.01 1.957 0 1.305-1.164 2.512-2.679 2.512-1.269 0-2.009-.75-1.974-1.99C9.789 1.436 10.67 0 12.432 0zM8.309 20c-1.058 0-1.833-.652-1.093-3.524l1.214-5.092c.211-.814.246-1.141 0-1.141-.317 0-1.689.562-2.502 1.117l-.528-.88c2.572-2.186 5.531-3.467 6.801-3.467 1.057 0 1.233 1.273.705 3.23l-1.391 5.352c-.246.945-.141 1.271.106 1.271.317 0 1.357-.392 2.379-1.207l.6.814C12.098 19.02 9.365 20 8.309 20z" />
                                 </svg>
                                 <p>Evento cancelado</p>
                             </div>
@@ -75,13 +88,15 @@
                         </div>
 
                         <div class="px-6 pt-4 pb-2 flex flex-row justify-between">
-                            <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#{{ $evento->categoria->nombre }}</span>
+                            <span
+                                class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#{{ $evento->categoria->nombre }}</span>
                             <x-modal>
                                 <x-slot name="name">{{ 'modal-' . $evento->id }}</x-slot>
 
                                 <div class="w-full p-2 flex justify-center">
 
-                                    <form class="w-2/3" method="POST" action="{{ route('inscripcion.store') }}" enctype="multipart/form-data">
+                                    <form class="w-2/3" method="POST" action="{{ route('inscripcion.store') }}"
+                                        enctype="multipart/form-data">
                                         @csrf
 
                                         <h1 class="overline decoration-indigo-500 m-3 text-2xl">Formulario de
@@ -90,21 +105,29 @@
                                         <!-- Numero de Entradas -->
                                         <div>
                                             <x-input-label for="numEntradas" :value="__('Numero de Entradas')" />
-                                            <x-text-input id="numEntradas" class="block mt-1 w-full border-indigo-400" type="number" name="numEntradas" :value="old('numEntradas')" required autofocus autocomplete="numEntradas" />
+                                            <x-text-input id="numEntradas" class="block mt-1 w-full border-indigo-400"
+                                                type="number" name="numEntradas" :value="old('numEntradas')" required
+                                                autofocus autocomplete="numEntradas" />
                                             <x-input-error :messages="$errors->get('numEntradas')" class="mt-2" />
                                         </div>
                                         <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                                         <input type="hidden" name="evento_id" value="{{ $evento->id }}">
                                         <div class="m-3">
-                                            <button class="inline-block bg-green-200 rounded border-solid border-2 border-green-700 px-1 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2" type="submit">Confirmar Inscripción</button>
+                                            <button
+                                                class="inline-block bg-green-200 rounded border-solid border-2 border-green-700 px-1 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+                                                type="submit">Confirmar Inscripción</button>
                                         </div>
 
 
                                     </form>
                                 </div>
                             </x-modal>
-
-                            <button class="inline-block bg-green-200 rounded border-2 border-green-700 px-1 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2" x-data x-on:click="$dispatch('open-modal', '{{ 'modal-' . $evento->id }}')">Inscribirse</button>
+                            @if($evento->fecha > now() && $evento->estado == 'creado')
+                            <button
+                                class="inline-block bg-green-200 rounded border-2 border-green-700 px-1 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+                                x-data
+                                x-on:click="$dispatch('open-modal', '{{ 'modal-' . $evento->id }}')">Inscribirse</button>
+                            @endif
                             <x-modal>
                                 <x-slot name="name">{{ 'detalles-' . $evento->id }}</x-slot>
 
@@ -131,12 +154,16 @@
                                         <p>{{$evento->aforoMax}}</p>
 
                                     </div>
-                                    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Estado:
+                                    <span
+                                        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Estado:
                                         {{ $evento->estado }}</span>
                                 </div>
                             </x-modal>
 
-                            <button class="inline-block bg-indigo-200 rounded border-2 border-indigo-400 px-1 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2" x-data x-on:click="$dispatch('open-modal', '{{ 'detalles-' . $evento->id }}')">info</button>
+                            <button
+                                class="inline-block bg-indigo-200 rounded border-2 border-indigo-400 px-1 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+                                x-data
+                                x-on:click="$dispatch('open-modal', '{{ 'detalles-' . $evento->id }}')">info</button>
                         </div>
                     </div>
 

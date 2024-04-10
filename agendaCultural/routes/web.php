@@ -65,6 +65,12 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'mdrol:admin'])->group(f
     Route::post('/eventos/inscripciones/delete', [InscripcionController::class, 'inscriptionsDelete'])->name('admin.inscriptionsDelete');
     Route::get('/experiencias', [ExperienciaController::class, 'indexAdmin'])->name('admin.experiences');
     Route::get('/experiencias/delete/{id}', [ExperienciaController::class, 'experienceDelete'])->name('admin.experienceDelete');
+    Route::get('/experiencias/nuevo', [ExperienciaController::class, 'experienceNewForm'])->name('admin.experienceNewForm');
+    Route::post('/experiencias/save', [ExperienciaController::class, 'storeExperience'])->name('admin.storeExperience');
+    Route::get('/empresa', [EmpresaController::class, 'index'])->name('admin.companies');
+    Route::get('/empresa/nuevo', [EmpresaController::class, 'companyNewForm'])->name('admin.companyNewForm');
+    Route::get('/empresa/Delete/{id}', [EmpresaController::class, 'companyDelete'])->name('admin.companyDelete');
+    Route::post('/empresa/save', [EmpresaController::class, 'storeCompany'])->name('admin.storeCompany');
 });
 
 

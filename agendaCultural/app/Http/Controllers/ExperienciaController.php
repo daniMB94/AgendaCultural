@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Experiencia;
+use App\Models\Empresa;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -73,6 +74,31 @@ class ExperienciaController extends Controller
     public function update(Request $request, Experiencia $experiencia)
     {
         //
+    }
+
+    public function experienceNewForm()
+    {
+        $empresas = Empresa::all();
+        return view('admin.experienceNewForm', compact('empresas'));
+    }
+
+    public function storeExperience(Request $request)
+    {
+        $experiencia = new Experiencia();
+
+        $experiencia->nombre = $request->nombre;
+        $experiencia->fechaInicio = $request->fechaInicio;
+        $experiencia->fechaFin = $request->fechaFin;
+        $experiencia->descripcionCorta = $request->descripcionCorta;
+        $experiencia->descripcionLarga = $request->descripcionLarga;
+        $experiencia->precio = $request->precio;
+        $experiencia->imagen = $request->imagen;
+        $experiencia->empresa_id = $request->empresa_id;
+
+        $experiencia->save();
+
+
+        return redirect(route('admin.experiences'));
     }
 
     /**

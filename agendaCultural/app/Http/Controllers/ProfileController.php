@@ -120,7 +120,7 @@ class ProfileController extends Controller
         } else if ($request->rol === "admin") {
             $empresa_id = 6;
         } else {
-            $empresa_id = $request->rol;
+            $empresa_id = $request->empresa_id;
         }
 
         $user = User::create([

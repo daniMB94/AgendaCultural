@@ -99,7 +99,8 @@ class EventoController extends Controller
 
     public function eventCretaeForm()
     {
-        return view('admin.eventNewForm');
+        $categorias = Categoria::all();
+        return view('admin.eventNewForm', compact('categorias'));
     }
 
     /**

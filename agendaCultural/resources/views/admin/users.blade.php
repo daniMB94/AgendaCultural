@@ -102,7 +102,7 @@
                                     <td class="px-3 py-4 text-sm font-medium whitespace-nowrap">
                                         <div
                                             class="inline px-3 py-1 text-sm font-normal text-gray-500 bg-gray-100 rounded-full dark:text-gray-400 gap-x-2 dark:bg-gray-800">
-                                            @if(strcmp($user->empresa->nombre, 'asistente') == 0)
+                                            @if(strcmp($user->empresa->nombre, 'asistente')==0)
                                             No pertenece a ninguna
                                             @else
                                             {{$user->empresa->nombre}}

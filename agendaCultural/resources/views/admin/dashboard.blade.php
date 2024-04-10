@@ -32,7 +32,7 @@
                     <div class="flex justify-between mb-6">
                         <div>
                             <div class="text-2xl font-semibold mb-1">{{$nExperiencias}}</div>
-                            <div class="text-sm font-medium text-gray-400">Experiencias creadas desde el inicio</div>
+                            <div class="text-sm font-medium text-gray-400">Experiencias creadas</div>
                         </div>
 
                     </div>
@@ -46,7 +46,7 @@
                     <div class="flex justify-between mb-6">
                         <div>
                             <div class="text-2xl font-semibold mb-1">{{$nEventos}}</div>
-                            <div class="text-sm font-medium text-gray-400">Eventos creados desde el inicio</div>
+                            <div class="text-sm font-medium text-gray-400">Eventos creados</div>
                         </div>
                         <div class="flex flex-col justify-between">
                             <div>
@@ -69,7 +69,7 @@
                     <div class="flex justify-between mb-6">
                         <div>
                             <div class="text-2xl font-semibold mb-1">{{$nInscripciones}}</div>
-                            <div class="text-sm font-medium text-gray-400">Inscripciones creadas desde el inicio</div>
+                            <div class="text-sm font-medium text-gray-400">Inscripciones registradas</div>
                         </div>
                         <div class="flex flex-col justify-between">
                             <div>

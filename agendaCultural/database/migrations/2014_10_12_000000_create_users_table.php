@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->enum('rol',['asistente', 'empresa', 'admin'])->nullable();
+            $table->enum('rol', ['asistente', 'empresa', 'admin'])->nullable();
             $table->unsignedBigInteger('empresa_id')->nullable();
             $table->foreign('empresa_id')->references('id')->on('empresas')->onDelete('set null');
             $table->rememberToken();

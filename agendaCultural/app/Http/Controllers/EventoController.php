@@ -58,11 +58,23 @@ class EventoController extends Controller
 
     public function indexAdmin(Request $request)
     {
+
+        //Lo primero será recorrer los eventos con fecha posterior a hoy y si hubiera alguno con estado "terminado" habría que corregirlo a "creado" (siempre y cuando no estuviera "cancelado")
+        //Esta comprobación la hago porque en el seeder no he controlado el estado en funcion de la fecha y algunas son incoherentes
+        $eventosPosteriores = Evento::where('fecha', '>', now())
+            ->where('estado', 'terminado')->get();
+        foreach ($eventosPosteriores as $eventoPosterior) {
+            $eventoPosterior->estado = 'creado';
+            $eventoPosterior->save();
+        }
+
+        //Aqui van los datos que se reflejarán en el resumen del panel admin
         $nEventos = Evento::all()->count();
         $nUsuarios = User::all()->count();
         $nExperiencias = Experiencia::all()->count();
         $nEmpresas = Empresa::all()->count() - 2;
         $nInscripciones = Inscripcion::all()->count();
+
         //Esta variable almacena el número de inscripciones vinculadas a un evento que sigue en vigor, es decir, que tiene una fechaFin mayor a la fecha de hoy y esta creado
         $inscripcionesActivas = Inscripcion::whereHas('evento', function ($query) {
             $query->where('fecha', '>=', now())

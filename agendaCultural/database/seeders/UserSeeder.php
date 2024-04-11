@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->count(45)->create();
+        User::factory()->count(50)->create();
 
         /*
         DB::table('users')->insert([
@@ -33,6 +33,5 @@ class UserSeeder extends Seeder
             'empresa_id' => 6,
         ]);
         */
-
     }
 }

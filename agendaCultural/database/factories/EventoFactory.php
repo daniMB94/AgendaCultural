@@ -17,7 +17,7 @@ class EventoFactory extends Factory
     public function definition(): array
     {
         //Uso la misma variable para establecer la categoria y la imagen. Así la imamgen tendra coherencia con la categoria
-        $categoriaImagen = $this->faker->numberBetween(1, 8);
+        $categoriaImagen = $this->faker->numberBetween(1, 9);
 
         return [
             'nombre' => $this->faker->unique()->text($maxNbChars = 20),

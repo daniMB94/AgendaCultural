@@ -23,7 +23,7 @@ class ExperienciaFactory extends Factory
             'descripcionCorta' => $this->faker->unique()->text($maxNbChars = 50),
             'descripcionLarga' => $this->faker->unique()->text($maxNbChars = 200),
             'precio' => $this->faker->numberBetween(5, 35),
-            'imagen' => 'exp' . $this->faker->numberBetween(1, 10) . 'jpg',
+            'imagen' => 'exp' . $this->faker->numberBetween(1, 10) . '.jpg',
             'empresa_id' => $this->faker->numberBetween(1, 5),
         ];
     }

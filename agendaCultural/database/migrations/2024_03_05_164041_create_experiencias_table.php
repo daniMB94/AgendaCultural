@@ -21,7 +21,7 @@ return new class extends Migration
             $table->double('precio');
             $table->string('imagen');
             $table->unsignedBigInteger('empresa_id')->nullable();
-            $table->foreign('empresa_id')->references('id')->on('empresas')->onDelete('set null');
+            $table->foreign('empresa_id')->references('id')->on('empresas')->onDelete('cascade');
             $table->timestamps();
         });
     }

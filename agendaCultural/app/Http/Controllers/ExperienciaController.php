@@ -16,10 +16,11 @@ class ExperienciaController extends Controller
 
     {
 
-        $experiencias = Experiencia::with(['empresa'])->get();
+        $experiencias = Experiencia::with(['empresa'])
+            ->orderBy('fechaInicio', 'asc')
+            ->get();
         foreach ($experiencias as $experiencia) {
-            $experiencia->fechaInicio =  Carbon::parse($experiencia->fechaInicio)->locale('es')->format('Y/m/d');
-            $experiencia->fechaFin =  Carbon::parse($experiencia->fechaInicio)->locale('es')->format('Y/m/d');
+            $experiencia->fechaInicio =  Carbon::parse($experiencia->fechaInicio)->locale('es')->format('d/m/Y');
         }
 
 
